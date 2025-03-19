@@ -25,12 +25,13 @@ jobs:
       run: mvn -B package --file pom.xml
 
     # ✅ Fix: Generate SHA-1 Hashes using shasum instead of MCJack123/ghaction-generate-release-hashes
-    - name: Generate SHA-1 Hashes
+    - name: Generate SHA-512 Hashes
       run: |
         shasum -a 1 target/hashsumgenerator-1.0-SNAPSHOT.jar > hashes.txt
     # Upload the generated hash file as an artifact
     - name: Upload Hashes as Artifact
       uses: actions/upload-artifact@v4
       with:
+        hash-type: sha512
         name: Asset Hashes
         path: hashes.txt
