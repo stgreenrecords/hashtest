@@ -27,8 +27,7 @@ jobs:
     # ✅ Fix: Generate SHA-1 Hashes using shasum instead of MCJack123/ghaction-generate-release-hashes
     - name: Generate SHA-1 Hashes
       run: |
-        find target -type f -exec shasum -a 1 {} \; > hashes.txt
-
+        shasum -a 1 target/hashsumgenerator-1.0-SNAPSHOT.jar > hashes.txt
     # Upload the generated hash file as an artifact
     - name: Upload Hashes as Artifact
       uses: actions/upload-artifact@v4
