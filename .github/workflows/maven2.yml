@@ -27,7 +27,7 @@ jobs:
     # ✅ Generate SHA-512 Hashes for all .zip files in target/
     - name: Generate SHA-512 Hashes for ZIP Files
       run: |
-        find target -type f -name "*.zip" -exec shasum -a 512 {} \; > hashes.txt
+        shasum -a 512 target/hashsumgenerator-1.0-SNAPSHOT.jar > hashes.txt
 
     # ✅ Upload the generated hash file as an artifact
     - name: Upload Hashes as Artifact
