@@ -24,14 +24,14 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    # ✅ Fix: Generate SHA-1 Hashes using shasum instead of MCJack123/ghaction-generate-release-hashes
-    - name: Generate SHA-512 Hashes
+    # ✅ Generate SHA-512 Hashes for all .zip files in target/
+    - name: Generate SHA-512 Hashes for ZIP Files
       run: |
-        shasum -a 1 target/hashsumgenerator-1.0-SNAPSHOT.jar > hashes.txt
-    # Upload the generated hash file as an artifact
+        find target -type f -name "*.zip" -exec shasum -a 512 {} \; > hashes.txt
+
+    # ✅ Upload the generated hash file as an artifact
     - name: Upload Hashes as Artifact
       uses: actions/upload-artifact@v4
       with:
-        hash-type: sha512
-        name: Asset Hashes
+        name: ZIP File Hashes
         path: hashes.txt
