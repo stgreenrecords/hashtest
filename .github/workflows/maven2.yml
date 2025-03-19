@@ -24,12 +24,10 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    # Generate SHA-1 Hashes for build artifacts
+    # ✅ Fix: Generate SHA-1 Hashes using shasum instead of MCJack123/ghaction-generate-release-hashes
     - name: Generate SHA-1 Hashes
-      uses: MCJack123/ghaction-generate-release-hashes@v3
-      with:
-        hash-type: sha1
-        file-name: hashes.txt
+      run: |
+        find target -type f -exec shasum -a 1 {} \; > hashes.txt
 
     # Upload the generated hash file as an artifact
     - name: Upload Hashes as Artifact
