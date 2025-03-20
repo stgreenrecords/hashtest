@@ -24,14 +24,24 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    # ✅ Generate SHA-512 Hashes for all .zip files in target/
-    - name: Generate SHA-512 Hashes for ZIP Files
+    - name: Generate SHA-512 Hashes
       run: |
-        shasum -a 512 target/hashsumgenerator-1.0-SNAPSHOT.jar > hashes.txt
+        VERSION=34
+        FILES=(
+          "siteimprove-aem-plugin-all/target/siteimprove-aem-plugin-all-${VERSION}-aem64.zip"
+          "siteimprove-aem-plugin-all/target/siteimprove-aem-plugin-all-${VERSION}-aem65.zip"
+          "siteimprove-aem-plugin-all/target/siteimprove-aem-plugin-all-${VERSION}-cloud.zip"
+          )
 
-    # ✅ Upload the generated hash file as an artifact
-    - name: Upload Hashes as Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: ZIP File Hashes
-        path: hashes.txt
+        > hashes.txt  # Clear the file before writing
+
+        for FILE in "${FILES[@]}"; do
+          if [ -f "$FILE" ]; then
+            shasum -a 512 "$FILE" >> hashes.txt
+          else
+            echo "Warning: File $FILE not found!" >&2
+          fi
+        done
+
+        cat hashes.txt  # Print hashes for debugging
+
