@@ -28,7 +28,7 @@ jobs:
       run: |
         VERSION=1.0-SNAPSHOT
         FILES=(
-        "hashtest/target/hashsumgenerator-${VERSION}.jar"
+        "target/hashsumgenerator-${VERSION}.jar"
           )
 
         > hashes.txt  # Clear the file before writing
