@@ -26,11 +26,9 @@ jobs:
 
     - name: Generate SHA-512 Hashes
       run: |
-        VERSION=34
+        VERSION=1.0-SNAPSHOT
         FILES=(
-          "siteimprove-aem-plugin-all/target/siteimprove-aem-plugin-all-${VERSION}-aem64.zip"
-          "siteimprove-aem-plugin-all/target/siteimprove-aem-plugin-all-${VERSION}-aem65.zip"
-          "siteimprove-aem-plugin-all/target/siteimprove-aem-plugin-all-${VERSION}-cloud.zip"
+        "hashtest/target/hashsumgenerator-${VERSION}.jar"
           )
 
         > hashes.txt  # Clear the file before writing
